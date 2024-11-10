@@ -1,6 +1,11 @@
 package org.example;
 
-public class Configuration {
+import java.io.Serializable;
+
+public class Configuration implements Serializable {
+    /**
+     * The configuration class is a blueprint for the configuration object.
+     */
     private int totalTickets;
     private int ticketReleaseRate;
     private int customerRetrievalRate;
@@ -27,6 +32,10 @@ public class Configuration {
 
     public int getMaxTicketCapacity() {
         return maxTicketCapacity;
+    }
+
+    public String toString() {
+        return "Total tickets: " + totalTickets + "\nTicket release rate: " + ticketReleaseRate + "\nCustomer retrieval rate: " + customerRetrievalRate + "\nMaximum ticket capacity: " + maxTicketCapacity;
     }
 
 }
