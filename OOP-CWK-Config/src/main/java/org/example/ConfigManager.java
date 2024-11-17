@@ -1,9 +1,7 @@
 package org.example;
 
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 import com.google.gson.Gson;
 import java.util.Scanner;
 
@@ -13,39 +11,71 @@ public class ConfigManager {
      * and creating the configuration object. It also validates the inputs
      * and saves the configuration to a JSON file.
      */
-
     private static Gson gson = new Gson();
 
     public static void main(String[] args) {
+        Configuration configuration;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the total number of tickets: ");
-        int totalTickets = scanner.nextInt();
-        System.out.println("Enter the ticket release rate: ");
-        int ticketReleaseRate = scanner.nextInt();
-        System.out.println("Enter the customer retrieval rate: ");
-        int customerRetrievalRate = scanner.nextInt();
-        System.out.println("Enter the maximum ticket capacity: ");
-        int maxTicketCapacity = scanner.nextInt();
-        Configuration configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
-        //Try to improve validation by checking at every step if possible
-        if (!isValid(configuration)) {
-            System.out.println("Invalid configuration! Please make sure all values are positive.");
-            return;
+        int totalTickets =0, ticketReleaseRate =0, customerRetrievalRate =0, maxTicketCapacity = 0;
+        while(totalTickets<=0) {
+            System.out.print("Enter the total number of tickets: ");
+            try {
+                totalTickets = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input! An integer is required.");
+                scanner.nextLine();
+                continue;
+            }
+            if (totalTickets <= 0) {
+                System.out.println("Total number of tickets must be greater than 0!");
+            }
         }
+        while(ticketReleaseRate<=0) {
+            System.out.print("Enter the ticket release rate: ");
+            try {
+                ticketReleaseRate = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input! An integer is required.");
+                scanner.nextLine();
+                continue;
+            }
+            if (ticketReleaseRate <= 0) {
+                System.out.println("Ticket release rate must be greater than 0!");
+            }
+        }
+        while(customerRetrievalRate<=0) {
+            System.out.print("Enter the customer retrieval rate: ");
+            try {
+                customerRetrievalRate = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input! An integer is required.");
+                scanner.nextLine();
+                continue;
+            }
+            if (customerRetrievalRate <= 0) {
+                System.out.println("Customer retrieval rate must be greater than 0!");
+            }
+        }
+        while(maxTicketCapacity<=0 | maxTicketCapacity<totalTickets) {
+            System.out.print("Enter the maximum ticket capacity: ");
+            try {
+                maxTicketCapacity = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input! An integer is required.");
+                scanner.nextLine();
+                continue;
+            }
+            if (maxTicketCapacity <= 0) {
+                System.out.println("Maximum ticket capacity must be greater than 0!");
+            } else if (maxTicketCapacity<totalTickets){
+                System.out.println("Maximum ticket capacity must be greater than or equal to the total number of tickets!");
+            }
+        }
+        configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
         saveConfiguration(configuration);
         System.out.println("Configuration set successfully!");
-        //To test the loading of the configuration and the rest of the code
         Configuration loadedConfiguration = loadConfiguration();
         System.out.println(loadedConfiguration.toString());
-    }
-
-    public static boolean isValid(Configuration configuration) {
-        /**
-         * This method checks if the configuration values are valid.
-         * @param configuration The configuration object to validate.
-         * @return True if the configuration is valid, false otherwise.
-         */
-        return configuration.getTotalTickets() > 0 && configuration.getTicketReleaseRate() > 0 && configuration.getCustomerRetrievalRate() > 0 && configuration.getMaxTicketCapacity() > 0;
     }
 
     public static void saveConfiguration(Configuration configuration) {
@@ -54,11 +84,13 @@ public class ConfigManager {
          * @param configuration The configuration object to save.
          */
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("config.json"));
+            File file = new File("src/main/resources/config.json");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(gson.toJson(configuration));
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Failed to save configuration!");
         }
     }
 
@@ -68,12 +100,13 @@ public class ConfigManager {
          * @return The configuration object loaded from the file.
          */
         try {
-            Scanner scanner = new Scanner(new FileReader("config.json"));
+            Scanner scanner = new Scanner(new FileReader("src/main/resources/config.json"));
             String json = scanner.nextLine();
             scanner.close();
             return gson.fromJson(json, Configuration.class);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Failed to load configuration!");
             return null;
         }
     }
