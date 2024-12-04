@@ -8,6 +8,19 @@ public class Main {
             System.out.println("Configuration not found!");
             return;
         }
+        boolean is_running = false;
         TicketPool ticketPool = new TicketPool(configuration.getMaxTicketCapacity());
+        Vendor[] vendors = new Vendor[10];
+        for (int i = 0; i < vendors.length; i++) {
+            vendors[i] = new Vendor(ticketPool, configuration.getTotalTickets(), configuration.getTicketReleaseRate());
+            Thread vendorThread = new Thread(vendors[i], "Vendor " + i);
+            vendorThread.start();
+        }
+        Customer[] customers = new Customer[10];
+        for (int i = 0; i < customers.length; i++) {
+            customers[i] = new Customer(ticketPool, configuration.getCustomerRetrievalRate(), (int)(Math.random()*10));
+            Thread customerThread = new Thread(customers[i], "Customer " + i);
+            customerThread.start();
+        }
     }
 }

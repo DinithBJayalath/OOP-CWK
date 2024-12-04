@@ -36,7 +36,10 @@ public class Configuration implements Serializable {
 
     @Override
     public String toString() {
-        return "Total tickets: " + totalTickets + "\nTicket release rate: " + ticketReleaseRate + "\nCustomer retrieval rate: " + customerRetrievalRate + "\nMaximum ticket capacity: " + maxTicketCapacity;
+        return "Total tickets: " + totalTickets +
+                "\nTicket release rate: " + ticketReleaseRate +
+                "\nCustomer retrieval rate: " + customerRetrievalRate +
+                "\nMaximum ticket capacity: " + maxTicketCapacity;
     }
 
 }

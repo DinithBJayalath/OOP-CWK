@@ -26,9 +26,9 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "Ticket{\n" +
                 "ticketId=" + ticketId +
-                ", isAvailable=" + isAvailable +
-                '}';
+                ", \nisAvailable=" + isAvailable +
+                "\n}";
     }
 }
