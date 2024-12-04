@@ -4,6 +4,10 @@ import java.io.*;
 
 import com.google.gson.Gson;
 import java.util.Scanner;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class ConfigManager {
     /**
@@ -12,6 +16,14 @@ public class ConfigManager {
      * and saves the configuration to a JSON file.
      */
     private static Gson gson = new Gson();
+    private static Logger logger = Logger.getLogger(ConfigManager.class.getName());
+    static {
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new SimpleFormatter());
+        logger.addHandler(consoleHandler);
+        logger.setLevel(Level.INFO);
+        logger.setUseParentHandlers(false);
+    }
 
     public static void Configure() {
         Configuration configuration;
@@ -75,9 +87,11 @@ public class ConfigManager {
                 System.out.println("Maximum ticket capacity must be greater than or equal to the total number of tickets!");
             }
         }
+        logger.info("All configuration parameters have been taken successfully.");
         configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
         saveConfiguration(configuration);
         System.out.println("Configuration set successfully!");
+        logger.info("Configuration saved successfully.");
         //TODO: These 2 lines are only for testing purposes, remove it before finishing the project.
         Configuration loadedConfiguration = loadConfiguration();
         System.out.println(loadedConfiguration.toString());

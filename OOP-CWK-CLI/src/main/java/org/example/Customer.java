@@ -18,8 +18,7 @@ public class Customer implements Runnable{
                 Ticket ticket = ticketPool.retrieveTicket();
                 Thread.sleep(1000/ticketPurchaseRate);
             } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
                 System.out.println("Customer thread interrupted");
             }
         }
