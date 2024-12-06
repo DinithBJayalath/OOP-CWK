@@ -23,4 +23,12 @@ public class Ticket {
     public void sellTicket() {
         isAvailable = false;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{\n" +
+                "ticketId=" + ticketId +
+                ", \nisAvailable=" + isAvailable +
+                "\n}";
+    }
 }

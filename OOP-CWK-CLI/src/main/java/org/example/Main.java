@@ -8,7 +8,7 @@ public class Main {
             System.out.println("Configuration not found!");
             return;
         }
-        boolean is_running = false;
+        boolean is_running = false; // TODO: Implement a way to check if the application is running
         TicketPool ticketPool = new TicketPool(configuration.getMaxTicketCapacity());
         Vendor[] vendors = new Vendor[10];
         for (int i = 0; i < vendors.length; i++) {

@@ -17,10 +17,11 @@ public class TicketPool {
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                System.out.println("Ticket addition interrupted");
             }
         }
         tickets.add(ticket);
-        System.out.println("Ticket " + ticket.getTicketId() + " added to the pool.");
+        System.out.println("Ticket " + ticket.getTicketId() + " added to the pool by Vendor " + Thread.currentThread().threadId());
         notifyAll();
     }
 
@@ -30,11 +31,12 @@ public class TicketPool {
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                System.out.println("Ticket retrieval interrupted");
             }
         }
         Ticket ticket = tickets.poll();
         ticket.sellTicket();
-        System.out.println("Ticket " + ticket.getTicketId() + " retrieved from the pool.");
+        System.out.println("Ticket " + ticket.getTicketId() + " has been bought by Customer " + Thread.currentThread().threadId());
         notifyAll();
         return ticket;
     }

@@ -91,7 +91,6 @@ public class ConfigManager {
         configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
         saveConfiguration(configuration);
         System.out.println("Configuration set successfully!");
-        logger.info("Configuration saved successfully.");
         //TODO: These 2 lines are only for testing purposes, remove it before finishing the project.
         Configuration loadedConfiguration = loadConfiguration();
         System.out.println(loadedConfiguration.toString());
@@ -106,10 +105,12 @@ public class ConfigManager {
             File file = new File("src/main/resources/config.json");
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(gson.toJson(configuration));
+            logger.info("Configuration saved successfully.");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to save configuration!");
+            logger.info("Failed to save configuration.");
         }
     }
 
@@ -126,6 +127,7 @@ public class ConfigManager {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load configuration!");
+            logger.info("Failed to load the configuration file.");
             return null;
         }
     }
