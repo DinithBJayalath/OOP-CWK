@@ -1,17 +1,27 @@
+import { SubmitHandler ,useForm} from "react-hook-form";
+import './ConfigForm.css';
+
+type FormValues = {
+    totalTickets: number;
+    ticketRelease: number;
+    customerRetrieval: number;
+    maxTickets: number;
+};
+
 function ConfigForm() {
+  const { register, handleSubmit } = useForm<FormValues>();
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log(data);
+  }
   return (
     <div className="config-form">
-        <h1>Configuration</h1>
-        <form>
-            <label htmlFor="total-tickets" className="total-tickets">Total ticket count:</label>
-            <input type="number" id="total-tickets" name="total-tickets" min="1" required />
-            <label htmlFor="ticket-release" className="ticket-release">Ticket release rate:</label>
-            <input type="number" id="ticket-release" name="ticket-release" min="1" required />
-            <label htmlFor="customer-retrieval" className="customer-retrieval">Customer retrieval rate:</label>
-            <input type="number" id="customer-retrieval" name="customer-retrieval" min="1" required />
-            <label htmlFor="max-ticket" className="max-ticket">Max ticket count:</label>
-            <input type="number" id="max-ticket" name="max-ticket" min="1" required />
-            <button type="submit">Start</button>
+        <h3>Configuration</h3>
+        <form className="form-config-form" onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("totalTickets")} className="form-control" placeholder="Enter total ticket number" type="number" id="total-tickets" min="1" />
+            <input {...register("ticketRelease")} className="form-control" placeholder="Enter ticket release rate" type="number" id="ticket-release" min="1" />
+            <input {...register("customerRetrieval")} className="form-control" placeholder="Enter Customer retrieval rate" type="number" id="customer-retrieval" min="1" />
+            <input {...register("maxTickets")} className="form-control" placeholder="Enter max ticket number" type="number" id="max-ticket"  min="1" />
+            <button className="btn btn-primary" type="submit">Start</button>
         </form>
     </div>
   )
