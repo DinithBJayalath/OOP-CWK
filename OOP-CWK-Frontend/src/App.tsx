@@ -1,4 +1,5 @@
 import ConfigForm from "./components/ConfigForm";
+import LogDisplay from "./components/LogDisplay";
 import TicketDetails from "./components/ticketDetails";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <ConfigForm />
       <TicketDetails />
+      <LogDisplay />
     </div>
   )
 }

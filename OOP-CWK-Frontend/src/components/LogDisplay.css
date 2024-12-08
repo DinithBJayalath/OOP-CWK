@@ -1,0 +1,10 @@
+.log-display {
+    width: 45%;
+    height: 42vh;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #050915;
+    color: #fff;
+    padding: 1% 5%;
+}
