@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+
 import './ConfigForm.css';
 
 type FormValues = {

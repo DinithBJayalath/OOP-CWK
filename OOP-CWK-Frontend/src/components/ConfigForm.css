@@ -1,5 +1,7 @@
 .config-form {
     width: 55%;
+    position: relative;
+    inset: 0;
     padding: 3rem 10%;
     border: 1px solid #000;
     display: flex;
