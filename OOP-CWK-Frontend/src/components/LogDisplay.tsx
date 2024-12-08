@@ -20,7 +20,7 @@ function LogDisplay() {
       }
     };
     setLogs([]);
-    fetchLogs();
+    fetchLogs(); // TODO: Comment when the following code is uncommented
     //TODO: Uncomment the following code to enable polling
     // const interval = setInterval(fetchLogs, 5000);
     // return () => clearInterval(interval);

@@ -4,19 +4,33 @@ import './ConfigForm.css';
 
 type FormValues = {
     totalTickets: number;
-    ticketRelease: number;
-    customerRetrieval: number;
-    maxTickets: number;
+    ticketReleaseRate: number;
+    customerRetrievalRate: number;
+    maxTicketCapacity: number;
 };
 
 function ConfigForm() {
-  const { register, handleSubmit, formState: {errors}, getValues } = useForm<FormValues>();
+  const { register, handleSubmit, formState: {errors}, getValues, reset } = useForm<FormValues>();
   
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
-  }
+    try {
+      const response = await fetch("http://localhost:8090/api/v1/config", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+      const result = await response.text();
+      console.log(result);
+      reset();
+    } catch (error) {
+      console.log("Failed to send config data: " + error);
+    }
+  };
 
-  const validateTicketRelease = (value: number, formValues: FormValues) => {
+  const validateTicketReleaseRate = (value: number, formValues: FormValues) => {
     if (value <= 0) {
       return "Ticket release rate must be greater than 0";
     } else if (value >= Number(formValues.totalTickets)) {
@@ -25,7 +39,7 @@ function ConfigForm() {
     return undefined;
   }
 
-  const validateCustomerRetrieval = (value: number, formValues: FormValues) => {
+  const validateCustomerRetrievalRateRate = (value: number, formValues: FormValues) => {
     if (value <= 0) {
       return "Customer retrieval rate must be greater than 0";
     }else if (value >= Number(formValues.totalTickets)) {
@@ -34,7 +48,7 @@ function ConfigForm() {
     return undefined;
   }
 
-  const validateMaxTickets = (value: number, formValues: FormValues) => {
+  const validateMaxTicketCapacity = (value: number, formValues: FormValues) => {
     if (value <= 0) {
       return "Max tickets must be greater than 0";
     } else if (value <= Number(formValues.totalTickets)) {
@@ -61,46 +75,46 @@ function ConfigForm() {
               <div className="text-danger">{errors.totalTickets.message}</div>
             }
             <input 
-              {...register("ticketRelease", 
+              {...register("ticketReleaseRate", 
                 {
                   required: "Ticket release rate is required",
-                  validate: (value) => validateTicketRelease(value, getValues())
+                  validate: (value) => validateTicketReleaseRate(value, getValues())
               })} 
               className="form-control" 
               placeholder="Enter ticket release rate" 
               type="number" 
               id="ticket-release" 
               min="1" />
-            {errors.ticketRelease && 
-              <div className="text-danger">{errors.ticketRelease.message}</div>
+            {errors.ticketReleaseRate && 
+              <div className="text-danger">{errors.ticketReleaseRate.message}</div>
             }
             <input 
-              {...register("customerRetrieval", 
+              {...register("customerRetrievalRate", 
                 {
                   required: "Customer retrieval rate is required",
-                  validate: (value) => validateCustomerRetrieval(value, getValues())
+                  validate: (value) => validateCustomerRetrievalRateRate(value, getValues())
               })} 
               className="form-control" 
               placeholder="Enter Customer retrieval rate" 
               type="number" 
               id="customer-retrieval" 
               min="1" />
-            {errors.customerRetrieval && 
-              <div className="text-danger">{errors.customerRetrieval.message}</div>
+            {errors.customerRetrievalRate && 
+              <div className="text-danger">{errors.customerRetrievalRate.message}</div>
             }
             <input 
-              {...register("maxTickets", 
+              {...register("maxTicketCapacity", 
                 {
                   required: "Max tickets is required",
-                  validate: (value) => validateMaxTickets(value, getValues())
+                  validate: (value) => validateMaxTicketCapacity(value, getValues())
               })} 
               className="form-control" 
               placeholder="Enter max ticket number" 
               type="number" 
               id="max-ticket"  
               min="1" />
-            {errors.maxTickets && 
-              <div className="text-danger">{errors.maxTickets.message}</div>
+            {errors.maxTicketCapacity && 
+              <div className="text-danger">{errors.maxTicketCapacity.message}</div>
             }
             <button className="btn btn-primary" type="submit">Start</button>
         </form>

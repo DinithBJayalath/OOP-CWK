@@ -28,6 +28,9 @@ function TicketDetails() {
       }
     };
     fetchTicketData();
+    //TODO: Comment when not polling and uncomment when polling is needed
+    // const interval = setInterval(fetchTicketData, 2000);
+    // return () => clearInterval(interval);
   }, []);
   return (
     <div className="ticket-details font-weight-bold">
