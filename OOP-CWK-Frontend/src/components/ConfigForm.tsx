@@ -1,7 +1,11 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useSubmission } from "./SubmissionContext"
+import { useEffect } from "react";
 
+import { useSubmission } from "./SubmissionContext";
 import './ConfigForm.css';
+
+const API_URL = "http://localhost:8090/api/v1/config";
+const STOP_URL = "http://localhost:8090/api/v1/stop";
 
 type FormValues = {
     totalTickets: number;
@@ -13,11 +17,18 @@ type FormValues = {
 function ConfigForm() {
   const { register, handleSubmit, formState: {errors}, getValues, reset } = useForm<FormValues>();
   const { setSubmission } = useSubmission();
+  useEffect(() => {
+    const handleBeforeUnload = async () => {
+      await fetch(STOP_URL);
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
     try {
-      const response = await fetch("http://localhost:8090/api/v1/config", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
