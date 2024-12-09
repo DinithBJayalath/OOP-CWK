@@ -78,4 +78,10 @@ public class TicketPool {
     public int getTicketsSold() {
         return ticketsSold;
     }
+
+    public void resetTicketPool() {
+        tickets.clear();
+        ticketsAdded = 0;
+        ticketsSold = 0;
+    }
 }

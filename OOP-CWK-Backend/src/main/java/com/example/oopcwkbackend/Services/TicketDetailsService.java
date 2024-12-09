@@ -18,4 +18,8 @@ public class TicketDetailsService {
     public TicketData getTicketDetails() {
         return new TicketData(ticketPool.getTicketPoolSize(), ticketPool.getTicketsAdded(), ticketPool.getTicketsSold());
     }
+
+    public void resetTicketDetails() {
+        ticketPool.resetTicketPool();
+    }
 }

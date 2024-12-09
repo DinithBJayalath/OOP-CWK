@@ -4,6 +4,7 @@ import { useSubmission } from "./SubmissionContext";
 import "./ticketDetails.css"
 
 const API_URL = "http://localhost:8090/api/v1/tickets";
+const RESET_URL = "http://localhost:8090/api/v1/reset";
 
 interface TicketData {
   availableTickets: number;
@@ -36,7 +37,14 @@ function TicketDetails() {
     // fetchTicketData();
     //TODO: Comment when not polling and uncomment when polling is needed
     const interval = setInterval(fetchTicketData, 2000);
-    return () => clearInterval(interval);
+    const handleBeforeUnload = async () => {
+      await fetch(RESET_URL, { method: "POST" });
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    }
   }, [submission]);
   return (
     <div className="ticket-details font-weight-bold">
