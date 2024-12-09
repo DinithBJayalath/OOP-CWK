@@ -1,13 +1,16 @@
 import ConfigForm from "./components/ConfigForm";
 import LogDisplay from "./components/LogDisplay";
-import TicketDetails from "./components/ticketDetails";
+import { SubmissionProvider } from "./components/SubmissionContext";
+import TicketDetails from "./components/TicketDetails";
 
 function App() {
   return (
     <div className="App">
-      <ConfigForm />
-      <TicketDetails />
-      <LogDisplay />
+      <SubmissionProvider>
+        <ConfigForm />
+        <TicketDetails />
+        <LogDisplay />
+      </SubmissionProvider>
     </div>
   )
 }

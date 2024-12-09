@@ -1,27 +1,45 @@
 package com.example.oopcwkbackend.Models;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
+@Component
 public class TicketPool {
     private Queue<Ticket> tickets = new ConcurrentLinkedQueue<>();
     private int maxTicketCapacity;
+    private int ticketsAdded = 0;
+    private int ticketsSold = 0;
+    private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
-    public TicketPool(int maxTicketCapacity) {
-        this.maxTicketCapacity = maxTicketCapacity;
+    public TicketPool() {
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new SimpleFormatter());
+        logger.addHandler(consoleHandler);
+        logger.setLevel(Level.INFO);
+        logger.setUseParentHandlers(false);
     }
 
     public synchronized void addTicket(Ticket ticket) {
         while (tickets.size() >= maxTicketCapacity) {
             try {
                 wait();
+                logger.info("Ticket pool is full. Waiting for tickets to be sold.");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ticket addition interrupted");
+                logger.info("Ticket addition interrupted");
             }
         }
         tickets.add(ticket);
+        ticketsAdded++;
         System.out.println("Ticket " + ticket.getTicketId() + " added to the pool by Vendor " + Thread.currentThread().threadId());
+        logger.info("Ticket " + ticket.getTicketId() + " added to the pool by Vendor " + Thread.currentThread().threadId());
         notifyAll();
     }
 
@@ -29,15 +47,35 @@ public class TicketPool {
         while (tickets.isEmpty()) {
             try {
                 wait();
+                logger.info("Ticket pool is empty. Waiting for tickets to be added.");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ticket retrieval interrupted");
+                logger.info("Ticket retrieval interrupted");
             }
         }
         Ticket ticket = tickets.poll();
         ticket.sellTicket();
+        ticketsSold++;
         System.out.println("Ticket " + ticket.getTicketId() + " has been bought by Customer " + Thread.currentThread().threadId());
+        logger.info("Ticket " + ticket.getTicketId() + " has been bought by Customer " + Thread.currentThread().threadId());
         notifyAll();
         return ticket;
+    }
+
+    public void setMaxTicketCapacity(int maxTicketCapacity) {
+        this.maxTicketCapacity = maxTicketCapacity;
+    }
+
+    public int getTicketPoolSize() {
+        return tickets.size();
+    }
+
+    public int getTicketsAdded() {
+        return ticketsAdded;
+    }
+
+    public int getTicketsSold() {
+        return ticketsSold;
     }
 }

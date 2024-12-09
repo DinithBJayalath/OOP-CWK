@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useSubmission } from "./SubmissionContext"
 
 import './ConfigForm.css';
 
@@ -11,6 +12,7 @@ type FormValues = {
 
 function ConfigForm() {
   const { register, handleSubmit, formState: {errors}, getValues, reset } = useForm<FormValues>();
+  const { setSubmission } = useSubmission();
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
@@ -24,6 +26,7 @@ function ConfigForm() {
       });
       const result = await response.text();
       console.log(result);
+      setSubmission(true);
       reset();
     } catch (error) {
       console.log("Failed to send config data: " + error);

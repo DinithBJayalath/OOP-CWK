@@ -15,11 +15,23 @@ public class TicketData {
         return availableTickets;
     }
 
+    public void setAvailableTickets(int availableTickets) {
+        this.availableTickets = availableTickets;
+    }
+
     public int getTicketsAdded() {
         return ticketsAdded;
     }
 
+    public void setTicketsAdded(int ticketsAdded) {
+        this.ticketsAdded = ticketsAdded;
+    }
+
     public int getTicketsSold() {
         return ticketsSold;
+    }
+
+    public void setTicketsSold(int ticketsSold) {
+        this.ticketsSold = ticketsSold;
     }
 }

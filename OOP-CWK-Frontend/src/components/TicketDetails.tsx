@@ -1,4 +1,5 @@
 import { useState, useEffect} from "react"
+import { useSubmission } from "./SubmissionContext";
 
 import "./ticketDetails.css"
 
@@ -14,7 +15,11 @@ function TicketDetails() {
   const [ticketData, setTicketData] = useState<TicketData>({availableTickets:0, ticketsAdded:0, ticketsSold:0});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const {submission} = useSubmission();
   useEffect(() => {
+    if (!submission) {
+      return;
+    }
     const fetchTicketData = async () => {
       setIsLoading(true);
       try {
@@ -23,15 +28,16 @@ function TicketDetails() {
         setTicketData(data);
       }catch (error) {
         setError(`Error: ${error}`);
+        console.log(error);
       }finally {
         setIsLoading(false);
       }
     };
-    fetchTicketData();
+    // fetchTicketData();
     //TODO: Comment when not polling and uncomment when polling is needed
-    // const interval = setInterval(fetchTicketData, 2000);
-    // return () => clearInterval(interval);
-  }, []);
+    const interval = setInterval(fetchTicketData, 2000);
+    return () => clearInterval(interval);
+  }, [submission]);
   return (
     <div className="ticket-details font-weight-bold">
         {error && <div className="error">Failed to load data</div>}
