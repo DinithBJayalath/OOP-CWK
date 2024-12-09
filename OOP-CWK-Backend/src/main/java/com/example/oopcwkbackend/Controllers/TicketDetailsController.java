@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class TicketDetailsController {
 
     private final TicketDetailsService ticketDetailsService;
@@ -16,13 +17,11 @@ public class TicketDetailsController {
         this.ticketDetailsService = ticketDetailsService;
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/api/v1/tickets")
     public TicketData returnTicketDetails() {
         return ticketDetailsService.getTicketDetails();
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/api/v1/reset")
     public void resetTicketDetails() {
         ticketDetailsService.resetTicketDetails();

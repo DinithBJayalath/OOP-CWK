@@ -1,14 +1,28 @@
 package com.example.oopcwkbackend.Models;
 
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 public class Vendor implements Runnable {
     private TicketPool ticketPool;
     private int totalTickets;
     private int ticketReleaseRate;
+    private static Logger logger = Logger.getLogger(Vendor.class.getName());
 
     public Vendor(TicketPool ticketPool,int totalTickets, int ticketReleaseRate) {
         this.ticketPool = ticketPool;
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
+        try {
+            FileHandler fileHandler = new FileHandler("logs.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+            logger.setLevel(Level.INFO);
+        } catch (Exception e) {
+            System.out.println("Can not find or open log file");
+        }
     }
 
     @Override
@@ -21,6 +35,7 @@ public class Vendor implements Runnable {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); //why this and not throw an exception
                 System.out.println("Vendor thread interrupted");
+                logger.info("Vendor thread interrupted");
             }
         }
     }

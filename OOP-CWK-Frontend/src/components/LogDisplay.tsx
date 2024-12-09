@@ -12,6 +12,7 @@ function LogDisplay() {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
+        console.log("Response: ", data);
         setLogs((perviousLogs) => [...perviousLogs, ...data]);
       }catch (error) {
         // setError(`Error: ${error}`);
@@ -20,10 +21,10 @@ function LogDisplay() {
       }
     };
     setLogs([]);
-    fetchLogs(); // TODO: Comment when the following code is uncommented
+    // fetchLogs(); // TODO: Comment when the following code is uncommented
     //TODO: Uncomment the following code to enable polling
-    // const interval = setInterval(fetchLogs, 5000);
-    // return () => clearInterval(interval);
+    const interval = setInterval(fetchLogs, 5000);
+    return () => clearInterval(interval);
   }, []);
   return (
     <div className="log-display">

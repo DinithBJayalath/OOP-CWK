@@ -2,12 +2,10 @@ package com.example.oopcwkbackend.Models;
 
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 @Component
 public class TicketPool {
@@ -17,12 +15,12 @@ public class TicketPool {
     private int ticketsSold = 0;
     private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
+    static {
+        logger.addHandler(LoggingConfigurator.getFileHandler());
+    }
+
     public TicketPool() {
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new SimpleFormatter());
-        logger.addHandler(consoleHandler);
-        logger.setLevel(Level.INFO);
-        logger.setUseParentHandlers(false);
+
     }
 
     public synchronized void addTicket(Ticket ticket) {
@@ -39,7 +37,6 @@ public class TicketPool {
         tickets.add(ticket);
         ticketsAdded++;
         System.out.println("Ticket " + ticket.getTicketId() + " added to the pool by Vendor " + Thread.currentThread().threadId());
-        logger.info("Ticket " + ticket.getTicketId() + " added to the pool by Vendor " + Thread.currentThread().threadId());
         notifyAll();
     }
 
@@ -58,7 +55,6 @@ public class TicketPool {
         ticket.sellTicket();
         ticketsSold++;
         System.out.println("Ticket " + ticket.getTicketId() + " has been bought by Customer " + Thread.currentThread().threadId());
-        logger.info("Ticket " + ticket.getTicketId() + " has been bought by Customer " + Thread.currentThread().threadId());
         notifyAll();
         return ticket;
     }
@@ -83,5 +79,6 @@ public class TicketPool {
         tickets.clear();
         ticketsAdded = 0;
         ticketsSold = 0;
+        logger.info("Ticket pool has been reset");
     }
 }

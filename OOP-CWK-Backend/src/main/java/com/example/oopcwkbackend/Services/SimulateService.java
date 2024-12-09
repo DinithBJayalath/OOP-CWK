@@ -1,16 +1,14 @@
 package com.example.oopcwkbackend.Services;
 
 import com.example.oopcwkbackend.Models.Customer;
+import com.example.oopcwkbackend.Models.LoggingConfigurator;
 import com.example.oopcwkbackend.Models.TicketPool;
 import com.example.oopcwkbackend.Models.Vendor;
 import com.example.oopcwkcli.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 @Service
 public class SimulateService {
@@ -19,15 +17,14 @@ public class SimulateService {
     private final TicketPool ticketPool;
     private static Logger logger = Logger.getLogger(SimulateService.class.getName());
 
+    static {
+        logger.addHandler(LoggingConfigurator.getFileHandler());
+    }
+
     @Autowired
     public SimulateService(TicketDetailsService ticketDetailsService, TicketPool ticketPool) {
         this.ticketDetailsService = ticketDetailsService;
         this.ticketPool = ticketPool;
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new SimpleFormatter());
-        logger.addHandler(consoleHandler);
-        logger.setLevel(Level.INFO);
-        logger.setUseParentHandlers(false);
     }
 
     public void simulate(Configuration configuration) {
@@ -40,13 +37,13 @@ public class SimulateService {
             Thread vendorThread = new Thread(vendors[i], "Vendor " + i);
             vendorThread.start();
         }
-        logger.info("Vendor threads started");
+        logger.info("All vendor threads started");
         Customer[] customers = new Customer[10];
         for (int i = 0; i < customers.length; i++) {
             customers[i] = new Customer(ticketPool, configuration.getCustomerRetrievalRate());
             Thread customerThread = new Thread(customers[i], "Customer " + i);
             customerThread.start();
         }
-        logger.info("Customer threads started");
+        logger.info("All customer threads started");
     }
 }
