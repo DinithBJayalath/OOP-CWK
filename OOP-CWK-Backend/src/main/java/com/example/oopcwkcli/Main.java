@@ -18,7 +18,7 @@ public class Main {
         }
         Customer[] customers = new Customer[10];
         for (int i = 0; i < customers.length; i++) {
-            customers[i] = new Customer(ticketPool, configuration.getCustomerRetrievalRate(), (int)(Math.random()*10));
+            customers[i] = new Customer(ticketPool, configuration.getCustomerRetrievalRate());
             Thread customerThread = new Thread(customers[i], "Customer " + i);
             customerThread.start();
         }

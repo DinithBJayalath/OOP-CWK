@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class ConfigController {
     private final SimulateService simulateService;
 
@@ -15,11 +16,16 @@ public class ConfigController {
         this.simulateService = simulateService;
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/api/v1/config")
     public ResponseEntity<String> config(@RequestBody Configuration configuration) {
         System.out.println(configuration.toString());
         simulateService.simulate(configuration);
         return ResponseEntity.ok("Configuration received");
+    }
+
+    @GetMapping("/api/v1/stop")
+    public ResponseEntity<String> stop() {
+        simulateService.stopSimulation();
+        return ResponseEntity.ok("Simulation stopped");
     }
 }

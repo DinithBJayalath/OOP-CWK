@@ -19,7 +19,7 @@ public class Vendor implements Runnable {
                 ticketPool.addTicket(ticket);
                 Thread.sleep(1000/ticketReleaseRate);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); //why this and not throw an exception
+                Thread.currentThread().interrupt();
                 System.out.println("Vendor thread interrupted");
             }
         }

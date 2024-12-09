@@ -27,7 +27,6 @@ public class TicketPool {
         while (tickets.size() >= maxTicketCapacity) {
             try {
                 wait();
-                logger.info("Ticket pool is full. Waiting for tickets to be sold.");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ticket addition interrupted");
@@ -44,7 +43,6 @@ public class TicketPool {
         while (tickets.isEmpty()) {
             try {
                 wait();
-                logger.info("Ticket pool is empty. Waiting for tickets to be added.");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ticket retrieval interrupted");

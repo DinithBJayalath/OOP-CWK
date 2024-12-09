@@ -10,6 +10,7 @@ public class Vendor implements Runnable {
     private int totalTickets;
     private int ticketReleaseRate;
     private static Logger logger = Logger.getLogger(Vendor.class.getName());
+    private boolean finished = false;
 
     public Vendor(TicketPool ticketPool,int totalTickets, int ticketReleaseRate) {
         this.ticketPool = ticketPool;
@@ -33,10 +34,19 @@ public class Vendor implements Runnable {
                 ticketPool.addTicket(ticket);
                 Thread.sleep(1000/ticketReleaseRate);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); //why this and not throw an exception
+                Thread.currentThread().interrupt();
                 System.out.println("Vendor thread interrupted");
                 logger.info("Vendor thread interrupted");
             }
         }
+        finished = true;
+    }
+
+    public void stop() {
+        Thread.currentThread().interrupt();
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }
