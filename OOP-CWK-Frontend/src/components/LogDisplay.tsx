@@ -30,9 +30,12 @@ function LogDisplay() {
     <div className="log-display">
         <h3>Logs</h3>
         <div className="log-list">
-            {logs.map((log, index) => (
-              <div key={index} className="log">{log}</div>
-            ))}
+          {logs.map((log, index) => (
+            <>
+              <div key={index} className={`log ${log.includes("INFO") ? "amber-line": ""}`}>{log}</div>
+              {log.includes("INFO") && <br />}
+            </>
+          ))}
         </div>
     </div>
   )

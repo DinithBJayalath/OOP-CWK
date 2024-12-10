@@ -38,7 +38,9 @@ function TicketDetails() {
     //TODO: Comment when not polling and uncomment when polling is needed
     const interval = setInterval(fetchTicketData, 2000);
     const handleBeforeUnload = async () => {
-      await fetch(RESET_URL, { method: "POST" });
+      const response = await fetch(RESET_URL, { method: "POST" });
+      const result = await response.text();
+      console.log(result);
     }
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {

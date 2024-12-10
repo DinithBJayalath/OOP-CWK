@@ -11,19 +11,14 @@ public class Vendor implements Runnable {
     private int ticketReleaseRate;
     private static Logger logger = Logger.getLogger(Vendor.class.getName());
     private boolean finished = false;
+    static {
+        logger.addHandler(LoggingConfigurator.getFileHandler());
+    }
 
     public Vendor(TicketPool ticketPool,int totalTickets, int ticketReleaseRate) {
         this.ticketPool = ticketPool;
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
-        try {
-            FileHandler fileHandler = new FileHandler("logs.log", true);
-            fileHandler.setFormatter(new SimpleFormatter());
-            logger.addHandler(fileHandler);
-            logger.setLevel(Level.INFO);
-        } catch (Exception e) {
-            System.out.println("Can not find or open log file");
-        }
     }
 
     @Override

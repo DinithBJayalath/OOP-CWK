@@ -14,7 +14,6 @@ public class TicketPool {
     private int ticketsAdded = 0;
     private int ticketsSold = 0;
     private static Logger logger = Logger.getLogger(TicketPool.class.getName());
-
     static {
         logger.addHandler(LoggingConfigurator.getFileHandler());
     }

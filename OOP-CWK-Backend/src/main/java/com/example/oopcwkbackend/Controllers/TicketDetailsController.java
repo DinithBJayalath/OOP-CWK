@@ -3,6 +3,7 @@ package com.example.oopcwkbackend.Controllers;
 import com.example.oopcwkbackend.Models.TicketData;
 import com.example.oopcwkbackend.Services.TicketDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,8 @@ public class TicketDetailsController {
     }
 
     @PostMapping("/api/v1/reset")
-    public void resetTicketDetails() {
+    public ResponseEntity<String> resetTicketDetails() {
         ticketDetailsService.resetTicketDetails();
+        return ResponseEntity.ok("Ticket details reset successfully!");
     }
 }

@@ -15,3 +15,7 @@
     overflow-y: scroll;
     word-wrap: break-word;
 }
+
+.amber-line {
+    color: #ffbf00;
+}

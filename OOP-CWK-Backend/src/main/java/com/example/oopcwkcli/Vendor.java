@@ -1,9 +1,22 @@
 package com.example.oopcwkcli;
 
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 public class Vendor implements Runnable {
     private TicketPool ticketPool;
     private int totalTickets;
     private int ticketReleaseRate;
+    private static Logger logger = Logger.getLogger(Vendor.class.getName());
+    static {
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new SimpleFormatter());
+        logger.addHandler(consoleHandler);
+        logger.setLevel(Level.INFO);
+        logger.setUseParentHandlers(false);
+    }
 
     public Vendor(TicketPool ticketPool,int totalTickets, int ticketReleaseRate) {
         this.ticketPool = ticketPool;
@@ -21,6 +34,7 @@ public class Vendor implements Runnable {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Vendor thread interrupted");
+                logger.info("Vendor thread interrupted");
             }
         }
     }

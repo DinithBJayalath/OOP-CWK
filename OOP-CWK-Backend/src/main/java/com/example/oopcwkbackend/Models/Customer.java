@@ -1,9 +1,15 @@
 package com.example.oopcwkbackend.Models;
 
 
+import java.util.logging.Logger;
+
 public class Customer implements Runnable{
     private TicketPool ticketPool;
     private int ticketPurchaseRate;
+    private static Logger logger = Logger.getLogger(Customer.class.getName());
+    static {
+        logger.addHandler(LoggingConfigurator.getFileHandler());
+    }
 
     public Customer(TicketPool ticketPool, int ticketPurchaseRate) {
         this.ticketPool = ticketPool;
