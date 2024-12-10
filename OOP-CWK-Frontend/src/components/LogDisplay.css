@@ -1,6 +1,6 @@
 .log-display {
     width: 45%;
-    height: 42vh;
+    height: 70vh;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -13,4 +13,5 @@
 .log-list {
     height: 90%;
     overflow-y: scroll;
+    word-wrap: break-word;
 }
