@@ -28,4 +28,10 @@ public class ConfigController {
         simulateService.stopSimulation();
         return ResponseEntity.ok("Simulation stopped");
     }
+
+    @PostMapping("/api/v1/updateArrays")
+    public ResponseEntity<String> updateArrays(@RequestParam int vendors, @RequestParam int customers) {
+        simulateService.updateArrays(vendors, customers);
+        return ResponseEntity.ok("Arrays updated");
+    }
 }

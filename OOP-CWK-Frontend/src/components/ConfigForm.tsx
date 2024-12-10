@@ -16,7 +16,7 @@ type FormValues = {
 
 function ConfigForm() {
   const { register, handleSubmit, formState: {errors}, getValues, reset } = useForm<FormValues>();
-  const { setSubmission } = useSubmission();
+  const { submission, setSubmission } = useSubmission();
   useEffect(() => {
     const handleBeforeUnload = async () => {
       await fetch(STOP_URL);
@@ -43,6 +43,18 @@ function ConfigForm() {
       console.log("Failed to send config data: " + error);
     }
   };
+
+  const stopSimulation = async () => {
+    if (!submission) {
+      return;
+    }
+    try {
+      console.log("Stopping simulation");
+      await fetch(STOP_URL);
+    } catch (error) {
+      console.log("Failed to stop simulation: " + error);
+    }
+  }
 
   const validateTicketReleaseRate = (value: number, formValues: FormValues) => {
     if (value <= 0) {
@@ -132,6 +144,7 @@ function ConfigForm() {
             }
             <button className="btn btn-primary" type="submit">Start</button>
         </form>
+        <button className="btn btn-danger" onClick={stopSimulation}>Stop</button>
     </div>
   )
 }

@@ -15,7 +15,6 @@ public class ConfigManager {
      * and creating the configuration object. It also validates the inputs
      * and saves the configuration to a JSON file.
      */
-    private static Gson gson = new Gson();
     private static Logger logger = Logger.getLogger(ConfigManager.class.getName());
     static {
         ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -89,46 +88,10 @@ public class ConfigManager {
         }
         logger.info("All configuration parameters have been taken successfully.");
         configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
-        saveConfiguration(configuration);
+        configuration.saveConfiguration();
         System.out.println("Configuration set successfully!");
         //TODO: These 2 lines are only for testing purposes, remove it before finishing the project.
-        Configuration loadedConfiguration = loadConfiguration();
+        Configuration loadedConfiguration = Configuration.loadConfiguration();
         System.out.println(loadedConfiguration.toString());
-    }
-
-    public static void saveConfiguration(Configuration configuration) {
-        /**
-         * This method saves the configuration to a JSON file.
-         * @param configuration The configuration object to save.
-         */
-        try {
-            File file = new File("src/main/resources/config.json");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(gson.toJson(configuration));
-            logger.info("Configuration saved successfully.");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to save configuration!");
-            logger.info("Failed to save configuration.");
-        }
-    }
-
-    public static Configuration loadConfiguration() {
-        /**
-         * This method loads the configuration from a JSON file.
-         * @return The configuration object loaded from the file.
-         */
-        try {
-            Scanner scanner = new Scanner(new FileReader("src/main/resources/config.json"));
-            String json = scanner.nextLine();
-            scanner.close();
-            return gson.fromJson(json, Configuration.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to load configuration!");
-            logger.info("Failed to load the configuration file.");
-            return null;
-        }
     }
 }

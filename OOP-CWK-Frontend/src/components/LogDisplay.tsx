@@ -12,7 +12,7 @@ function LogDisplay() {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        console.log("Response: ", data);
+        // console.log("Response: ", data); // TODO: For debugging, remove later
         setLogs((perviousLogs) => [...perviousLogs, ...data]);
       }catch (error) {
         // setError(`Error: ${error}`);
