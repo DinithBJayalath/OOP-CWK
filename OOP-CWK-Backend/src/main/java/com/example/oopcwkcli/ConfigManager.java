@@ -1,8 +1,5 @@
 package com.example.oopcwkcli;
 
-import java.io.*;
-
-import com.google.gson.Gson;
 import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -34,6 +31,7 @@ public class ConfigManager {
                 totalTickets = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
+                logger.info("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -47,6 +45,7 @@ public class ConfigManager {
                 ticketReleaseRate = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
+                logger.info("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -62,6 +61,7 @@ public class ConfigManager {
                 customerRetrievalRate = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
+                logger.info("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -77,6 +77,7 @@ public class ConfigManager {
                 maxTicketCapacity = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
+                logger.info("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -90,8 +91,5 @@ public class ConfigManager {
         configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
         configuration.saveConfiguration();
         System.out.println("Configuration set successfully!");
-        //TODO: These 2 lines are only for testing purposes, remove it before finishing the project.
-        Configuration loadedConfiguration = Configuration.loadConfiguration();
-        System.out.println(loadedConfiguration.toString());
     }
 }

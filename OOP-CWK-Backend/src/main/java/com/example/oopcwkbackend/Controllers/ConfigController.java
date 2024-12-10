@@ -1,5 +1,6 @@
 package com.example.oopcwkbackend.Controllers;
 
+import com.example.oopcwkbackend.Models.UpdateRequest;
 import com.example.oopcwkbackend.Services.SimulateService;
 import com.example.oopcwkcli.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class ConfigController {
     }
 
     @PostMapping("/api/v1/updateArrays")
-    public ResponseEntity<String> updateArrays(@RequestParam int vendors, @RequestParam int customers) {
-        simulateService.updateArrays(vendors, customers);
+    public ResponseEntity<String> updateArrays(@RequestBody UpdateRequest updateRequest) {
+        simulateService.updateArrays(updateRequest.getVendors(), updateRequest.getCustomers());
         return ResponseEntity.ok("Arrays updated");
     }
 }
