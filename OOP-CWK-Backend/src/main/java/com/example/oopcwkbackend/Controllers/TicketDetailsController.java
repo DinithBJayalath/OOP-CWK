@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class TicketDetailsController {
+    /**
+     * Ticket details controller class,
+     * this class handles the REST API requests related to displaying ticket details
+     */
 
     private final TicketDetailsService ticketDetailsService;
 

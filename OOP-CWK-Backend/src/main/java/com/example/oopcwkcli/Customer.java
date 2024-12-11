@@ -6,8 +6,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Customer implements Runnable{
+    /**
+     * The Customer class is responsible for purchasing tickets from the tickets queue.
+     */
     private TicketPool ticketPool;
     private int ticketPurchaseRate;
+    //The following lines are used to create a logger object
     private static Logger logger = Logger.getLogger(Customer.class.getName());
     static {
         ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -27,11 +31,11 @@ public class Customer implements Runnable{
          while (!Thread.currentThread().isInterrupted()) {
             try {
                 Ticket ticket = ticketPool.retrieveTicket();
-                Thread.sleep(1000/ticketPurchaseRate);
+                Thread.sleep(1000*ticketPurchaseRate);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Customer thread interrupted");
-                logger.info("Customer thread interrupted");
+                logger.warning("Customer thread interrupted");
             }
         }
     }

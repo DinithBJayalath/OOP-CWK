@@ -8,6 +8,9 @@ import java.util.logging.*;
 
 @Component
 public class TicketPool {
+    /**
+     * Ticket pool class, responsible for managing the tickets queue.
+     */
     private Queue<Ticket> tickets = new ConcurrentLinkedQueue<>();
     private int maxTicketCapacity;
     private int ticketsAdded = 0;
@@ -28,7 +31,7 @@ public class TicketPool {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ticket addition interrupted");
-                logger.info("Ticket addition interrupted");
+                logger.warning("Ticket addition interrupted");
             }
         }
         tickets.add(ticket);
@@ -44,7 +47,7 @@ public class TicketPool {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ticket retrieval interrupted");
-                logger.info("Ticket retrieval interrupted");
+                logger.warning("Ticket retrieval interrupted");
             }
         }
         Ticket ticket = tickets.poll();

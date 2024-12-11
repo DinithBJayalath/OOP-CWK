@@ -26,6 +26,15 @@ function LogDisplay() {
     const interval = setInterval(fetchLogs, 5000);
     return () => clearInterval(interval);
   }, []);
+  const logType = (log: string) => {
+    if (log.includes("INFO")) {
+      return "amber-line";
+    }else if (log.includes("WARNING")) {
+      return "red-line";
+    } else {
+      return "";
+    }
+  }
   return (
     <div className="log-display">
         <h3>Logs</h3>

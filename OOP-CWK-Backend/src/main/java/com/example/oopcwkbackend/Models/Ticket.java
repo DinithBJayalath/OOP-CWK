@@ -1,6 +1,9 @@
 package com.example.oopcwkbackend.Models;
 
 public class Ticket {
+    /**
+     * Ticket class, the data class for storing ticket data
+     */
     private int ticketId;
     private boolean isAvailable = true;
 

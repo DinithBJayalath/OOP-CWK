@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TicketDetailsService {
+    /**
+     * TicketDetailsService class, responsible for handling ticket details
+     * and resetting ticket details
+     */
 
     private final TicketPool ticketPool;
 

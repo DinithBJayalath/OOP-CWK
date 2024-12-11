@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 @RestController
 public class LogDisplayController {
+    /**
+     * Log display controller class,
+     * this class handles the REST API requests related to the display of logs
+     */
 
     private final LogDisplayService logDisplayService;
 

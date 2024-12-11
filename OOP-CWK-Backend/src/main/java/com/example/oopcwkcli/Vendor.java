@@ -6,6 +6,9 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Vendor implements Runnable {
+    /**
+     * The Vendor class is responsible for adding tickets to the tickets queue.
+     */
     private TicketPool ticketPool;
     private int totalTickets;
     private int ticketReleaseRate;
@@ -30,11 +33,11 @@ public class Vendor implements Runnable {
             try {
                 Ticket ticket = new Ticket(i);
                 ticketPool.addTicket(ticket);
-                Thread.sleep(1000/ticketReleaseRate);
+                Thread.sleep(1000*ticketReleaseRate);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Vendor thread interrupted");
-                logger.info("Vendor thread interrupted");
+                logger.warning("Vendor thread interrupted");
             }
         }
     }

@@ -1,6 +1,10 @@
 package com.example.oopcwkbackend.Models;
 
 public class UpdateRequest {
+    /**
+     * UpdateRequest class, responsible for storing the number of vendors and customers
+     * that are received from the frontend
+     */
     private int vendors;
     private int customers;
 

@@ -15,6 +15,10 @@ import java.util.logging.*;
 
 @Service
 public class SimulateService {
+    /**
+     * This is the main class that handles the ticket simulation
+     * by creating vendor and customer threads and managing them.
+     */
 
     private final TicketDetailsService ticketDetailsService;
     private final TicketPool ticketPool;
@@ -39,14 +43,14 @@ public class SimulateService {
             configuration.saveConfiguration();
             logger.info("Ticket simulation started");
             ticketPool.setMaxTicketCapacity(configuration.getMaxTicketCapacity());
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
                 Vendor vendor = new Vendor(ticketPool, configuration.getTotalTickets(), configuration.getTicketReleaseRate());
                 vendors.add(vendor);
                 Thread vendorThread = new Thread(vendor, "Vendor " + i);
                 vendorThread.start();
             }
             logger.info("All vendor threads started");
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
                 Customer customer = new Customer(ticketPool, configuration.getCustomerRetrievalRate());
                 customers.add(customer);
                 Thread customerThread = new Thread(customer, "Customer " + i);
@@ -69,7 +73,7 @@ public class SimulateService {
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         System.out.println("Simulation thread interrupted");
-                        logger.info("Simulation thread interrupted");
+                        logger.warning("Simulation thread interrupted");
                     }
                 }
             }
@@ -79,6 +83,7 @@ public class SimulateService {
     public void updateArrays(int vendorsCount, int customersCount) {
         Configuration configuration = Configuration.loadConfiguration();
         if (configuration == null) {
+            logger.severe("Configuration file not found");
             return;
         }
         synchronized (this) {
@@ -115,6 +120,6 @@ public class SimulateService {
         for (Customer customer : customers) {
             customer.stop();
         }
-        logger.info("Ticket simulation stopped");
+        logger.warning("Ticket simulation stopped");
     }
 }

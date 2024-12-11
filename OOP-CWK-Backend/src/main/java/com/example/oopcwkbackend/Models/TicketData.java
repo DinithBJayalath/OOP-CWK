@@ -1,6 +1,10 @@
 package com.example.oopcwkbackend.Models;
 
 public class TicketData {
+    /**
+     * Ticket data class,
+     * responsible for storing ticket data that is sent to the ticket details component of the frontend
+     */
     private int availableTickets;
     private int ticketsAdded;
     private int ticketsSold;

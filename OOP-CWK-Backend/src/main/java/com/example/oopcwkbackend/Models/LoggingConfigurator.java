@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class LoggingConfigurator {
+    /**
+     * LoggingConfigurator class, responsible for configuring the logger
+     */
 
     private static FileHandler fileHandler;
 

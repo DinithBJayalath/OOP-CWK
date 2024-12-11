@@ -4,6 +4,9 @@ package com.example.oopcwkbackend.Models;
 import java.util.logging.Logger;
 
 public class Customer implements Runnable{
+    /**
+     * Customer class, responsible for purchasing tickets from the tickets queue.
+     */
     private TicketPool ticketPool;
     private int ticketPurchaseRate;
     private static Logger logger = Logger.getLogger(Customer.class.getName());
@@ -21,10 +24,11 @@ public class Customer implements Runnable{
         while(!Thread.currentThread().isInterrupted()) {
             try {
                 Ticket ticket = ticketPool.retrieveTicket();
-                Thread.sleep(1000/ticketPurchaseRate);
+                Thread.sleep(1000*ticketPurchaseRate);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Customer thread interrupted");
+                logger.warning("Customer thread interrupted");
             }
         }
     }

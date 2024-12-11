@@ -12,6 +12,7 @@ public class ConfigManager {
      * and creating the configuration object. It also validates the inputs
      * and saves the configuration to a JSON file.
      */
+    //The following lines are used to create a logger object
     private static Logger logger = Logger.getLogger(ConfigManager.class.getName());
     static {
         ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -22,6 +23,10 @@ public class ConfigManager {
     }
 
     public static void configure() {
+        /**
+         * This method is used to get the configuration information from the user
+         * and save it to a JSON file.
+         */
         Configuration configuration;
         Scanner scanner = new Scanner(System.in);
         int totalTickets =0, ticketReleaseRate =0, customerRetrievalRate =0, maxTicketCapacity = 0;
@@ -31,7 +36,7 @@ public class ConfigManager {
                 totalTickets = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
-                logger.info("Invalid input entered!");
+                logger.warning("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -45,7 +50,7 @@ public class ConfigManager {
                 ticketReleaseRate = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
-                logger.info("Invalid input entered!");
+                logger.warning("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -61,7 +66,7 @@ public class ConfigManager {
                 customerRetrievalRate = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
-                logger.info("Invalid input entered!");
+                logger.warning("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }
@@ -77,7 +82,7 @@ public class ConfigManager {
                 maxTicketCapacity = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Invalid input! An integer is required.");
-                logger.info("Invalid input entered!");
+                logger.warning("Invalid input entered!");
                 scanner.nextLine();
                 continue;
             }

@@ -19,6 +19,7 @@ public class Configuration implements Serializable {
     private int maxTicketCapacity;
 
     private static Gson gson = new Gson();
+    //The following lines are used to create a logger object
     private static Logger logger = Logger.getLogger(ConfigManager.class.getName());
     static {
         ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -49,7 +50,7 @@ public class Configuration implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to save configuration!");
-            logger.info("Failed to save configuration.");
+            logger.warning("Failed to save configuration.");
         }
     }
 
@@ -66,7 +67,7 @@ public class Configuration implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load configuration!");
-            logger.info("Failed to load the configuration file.");
+            logger.warning("Failed to load the configuration file.");
             return null;
         }
     }

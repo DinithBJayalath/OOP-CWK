@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class ConfigController {
+    /**
+     * Configuration controller class,
+     * this class handles the REST API requests related to the configuration of the simulation
+     */
     private final SimulateService simulateService;
 
     @Autowired
