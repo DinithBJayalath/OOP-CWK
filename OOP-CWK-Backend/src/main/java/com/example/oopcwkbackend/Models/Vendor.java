@@ -32,6 +32,7 @@ public class Vendor implements Runnable {
                 Thread.currentThread().interrupt();
                 System.out.println("Vendor thread interrupted");
                 logger.warning("Vendor thread interrupted");
+                break;
             }
         }
         finished = true;

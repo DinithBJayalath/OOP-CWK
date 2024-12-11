@@ -29,6 +29,7 @@ public class Customer implements Runnable{
                 Thread.currentThread().interrupt();
                 System.out.println("Customer thread interrupted");
                 logger.warning("Customer thread interrupted");
+                break;
             }
         }
     }

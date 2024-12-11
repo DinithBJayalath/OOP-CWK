@@ -120,6 +120,7 @@ public class SimulateService {
         for (Customer customer : customers) {
             customer.stop();
         }
+        executorService.shutdown();
         logger.warning("Ticket simulation stopped");
     }
 }

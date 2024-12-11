@@ -5,8 +5,8 @@ import "./DynamicAdd.css"
 const API_URL = "http://localhost:8090/api/v1/updateArrays";
 
 function DynamicAdd() {
-  const [vendors, setVendors] = useState(10);
-  const [customers, setCustomers] = useState(10);
+  const [vendors, setVendors] = useState(5);
+  const [customers, setCustomers] = useState(5);
   const addVendor = () => {
     setVendors(vendors + 1);
   }
