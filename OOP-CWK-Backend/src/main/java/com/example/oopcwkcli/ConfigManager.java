@@ -21,7 +21,7 @@ public class ConfigManager {
         logger.setUseParentHandlers(false);
     }
 
-    public static void Configure() {
+    public static void configure() {
         Configuration configuration;
         Scanner scanner = new Scanner(System.in);
         int totalTickets =0, ticketReleaseRate =0, customerRetrievalRate =0, maxTicketCapacity = 0;

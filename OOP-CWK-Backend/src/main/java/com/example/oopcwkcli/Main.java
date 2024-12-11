@@ -27,7 +27,7 @@ public class Main {
                 }
             }
         });
-        ConfigManager.Configure(); // Configure the application save the configuration to a json file
+        ConfigManager.configure(); // Configure the application save the configuration to a json file
         listenerThread.start();
         try {
             Thread.sleep(2000); // Wait for the listener thread to start
