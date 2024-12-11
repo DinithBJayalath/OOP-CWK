@@ -20,6 +20,7 @@ The Front end of the application contained in the **OOP-CWK-Frontend** uses the 
 * ### CLI
 The CLI component of the application is a standalone component that can be run in using a command-line application, a text editor or an IDE.  
 To stat the functionality, run the **Main** class of the component and enter the requested data. The simulation will start to run and real-time information will be displayed in the terminal, or the command-line.  
+To terminate the program and exit press **'q'** and **enter**.
 * ### Backend
 The backend of the application is configured to run on the URL **"http://localhost:8090"**.  
 To start the server, run the **OopCwkBackendApplication** class of the package and the server will start on the specified url.  
