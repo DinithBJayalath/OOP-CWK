@@ -1,12 +1,10 @@
 package com.example.oopcwkbackend.Services;
 
-import com.example.oopcwkbackend.Models.LoggingConfigurator;
 import com.example.oopcwkbackend.Models.TicketData;
 import com.example.oopcwkbackend.Models.TicketPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
 
 @Service
 public class TicketDetailsService {
